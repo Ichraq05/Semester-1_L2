@@ -1,18 +1,5 @@
-public class Ex13 
-{
-    //class TestAdresseWeb {}
-    public static void main(String[] args) {
-        AdresseWeb adresse1 = new AdresseWeb("https", "supersite.fr", "/rep1/rep2/index.html");
-        AdresseWeb adresse2 = new AdresseWeb("supersite.fr", "/rep1/rep2/index.html");
-        AdresseWeb adresse3 = new AdresseWeb("supersite.fr");
-
-        System.out.println(adresse1.toString());
-        System.out.println(adresse2.toString());
-        System.out.println(adresse3.toString());
-        }
-}
-
-class AdresseWeb {
+package Ex13;
+public class AdresseWeb {
     private String protocole;
     private String domaine;
     private String chemin;

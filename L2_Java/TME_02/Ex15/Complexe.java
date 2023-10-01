@@ -1,16 +1,7 @@
+package Ex15;
 import java.util.Random;
 
-public class Ex15 {
-    public static void main(String[] args) {
-        Complexe iCarre = new Complexe(0, 1).multiplication(new Complexe(0, 1));
-        Complexe resultat = new Complexe(1, 1).multiplication(new Complexe(2, 2));
-
-        System.out.println("i^2 = " + iCarre);
-        System.out.println("(1 + i) * (2 + 2i) = " + resultat);
-    }
-}
-
-class Complexe 
+public class Complexe 
 {
     private double reelle;
     private double imag;

@@ -1,4 +1,5 @@
-public class Ex14_Q4 {
+package Ex14;
+public class TestCoureur2 {
     //class TestCoureur {}
     public static void main(String[] args) {
         Coureur c1 = new Coureur();
