@@ -30,9 +30,19 @@ public class Point {
     }
 
     // Méthode, déplacer le point
-    public void deplaceToi(int newx, int newy) {
+    public void deplaceToi(double newx, double newy) {
         posx = newx;
         posy = newy;
     }
 
+    public Point(Point p1)
+    {
+        this.posx = p1.posx;
+        this.posy = p1.posy;
+    }
+
+    //Q.7 :
+    public boolean equals(Point p2) {
+        return this.posx == p2.posx && this.posy == p2.posy;
+    }
 }
