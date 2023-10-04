@@ -9,4 +9,8 @@ Ex 2 :
 
 Q.2 - Il manque le './' qui indique le repertoire courant.
 
-Q.6- Le danger de mettre un '.' dans un path est de perdre tous ces fichiers dans ce path.
+Q.6- Le danger de mettre un '.' dans un path est de perdre tous ces fichiers dans ce path et d'autres menaces.
+
+Ex 3 : 
+
+

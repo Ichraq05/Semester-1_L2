@@ -1,3 +1,4 @@
+#!/bin/bash
 read maVariable
 
 while true; do
@@ -13,3 +14,4 @@ echo "Saisissez un nombre ou 'q' pour quitter : "
 done
 
 ./additon $old
+
