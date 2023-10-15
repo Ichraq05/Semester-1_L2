@@ -14,3 +14,4 @@ Q.6- Le danger de mettre un '.' dans un path est de perdre tous ces fichiers dan
 Ex 3/4 :
 
 Fichier pere.sh et fils.sh.
+
