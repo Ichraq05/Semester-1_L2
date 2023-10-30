@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "min_max_moy.h"
 
 void min_max_moy(int *min, int *max, float *moy, int tab[], int taille){
     
@@ -51,7 +52,6 @@ void moy_rec(float *moy, int tab[], int taille){
         *moy = (somme * (taille - 1) + tab[0])/taille;
     }    
 }
-
 
 int main(int argc, char const *argv[])
 {

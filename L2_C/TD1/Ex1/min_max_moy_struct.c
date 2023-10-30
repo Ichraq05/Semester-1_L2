@@ -59,9 +59,20 @@ int main(int argc, char const *argv[])
     int tableau[] = {5, 10, 3, 8, 15, 2};
     int taille = sizeof(tableau)/sizeof(tableau[0]);
 
+    printf ("tableau = {");
+    for (int i = 0; i < taille; i++)
+    {
+        if (i == taille-1){
+            printf("%d}\n", tableau[i]);
+        }
+        else{
+            printf ("%d, ", tableau[i]);
+        }
+    }
+
     Min_Max_Moy result = min_max_moy(tableau, taille);
 
-    printf ("Dans le tableau suivbant :\n %ls\nLa valeur minimum est : %d\n La valeur maximum est : %d\nLa moyenne du tableau est : %.2f", tableau, result.min, result.max, result.moy);
+    printf ("\nLa valeur minimum est : %d\nLa valeur maximum est : %d\nLa moyenne du tableau est : %.2f",result.min, result.max, result.moy);
 
     return 0;
 }
