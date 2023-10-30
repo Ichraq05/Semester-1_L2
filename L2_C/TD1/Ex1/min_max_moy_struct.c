@@ -51,6 +51,8 @@ Min_Max_Moy min_max_moy_rec(int tab[], int taille){
         res_rec.moy = 0.0;
         return res_rec;
     }
+
+    //Flemme de finir la fonction, 2e version disponible dans le repertoire...
 }
    
 
