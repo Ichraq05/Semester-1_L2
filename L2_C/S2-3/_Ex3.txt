@@ -1,0 +1,26 @@
+Q.1 Le fichier ecosys.h sera inclus dans les fichiers main_tests.c, main_ecosys.c et ecosys.c. 
+
+Q.2 main_tests.c  --> gcc -c main_tests.c -o main_tests.o
+    ecosys.c      --> gcc -c ecosys.c -o ecosys.o
+Creation de l'exécutable "test_ecosys" à partir de main_tests.o et ecosys.o --> gcc main_tests.o ecosys.o -o test_ecosys
+    main_ecosys.c --> gcc -c main_ecosys.c -o main_ecosys.o
+Création de l'exécutable "ecosys" à partir de main_ecosys.o et ecosys.o  --> gcc main_ecosys.o ecosys.o -o ecosys
+
+
+Q.3 Suivres les étapes suivantes :
+1. Compilation du nouveau main_tests.c 
+   --> gcc -c main_tests.c -o main_tests.o
+
+2. Recréation de l'exécutable "test_ecosys" en liant le nouveau main_tests.o avec le fichier ecosys.o 
+   --> gcc main_tests.o ecosys.o -o test_ecosys
+
+
+Q.4 Suivres les étapes suivantes :
+1. Nouveau ecosys.c 
+   --> gcc -c ecosys.c -o ecosys.o
+2. Recréation de l'exécutable "test_ecosys" en liant le main_tests.o existant avec le nouveau ecosys.o 
+   --> gcc main_tests.o ecosys.o -o test_ecosys
+3. Recréation de l'exécutable "ecosys" en liant le main_ecosys.o existant avec le nouveau ecosys.o
+   --> gcc main_ecosys.o ecosys.o -o ecosys
+
+
