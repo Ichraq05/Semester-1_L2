@@ -27,22 +27,61 @@ Animal *ajouter_en_tete_animal(Animal *liste, Animal *animal) {
 }
 
 /* A faire. Part 1, exercice 6, question 2 */
-void ajouter_animal(int x, int y,  float energie, Animal **liste_animal) {
-  /*A Completer*/
+void ajouter_animal(int x, int y,float energie, Animal **liste_animal) {
+  // Vérifie que les coordonnées x et y sont positives et inférieures à SIZE_X et SIZE_Y 
+  assert(x >= 0 && x < SIZE_X);
+  assert(y >= 0 && y < SIZE_Y);
+
+  // Crée un nouvel animal avec les coordonnées x, y
+  Animal *nv_animal = creer_animal(x, y, energie);
+
+  // Ajoute le nouvel animal en tête de la liste chaînée 
+  nv_animal->suivant = *liste_animal;
+  *liste_animal = nv_animal;
 }
+
 
 /* A Faire. Part 1, exercice 5, question 5 */
 void enlever_animal(Animal **liste, Animal *animal) {
-  /*A Completer*/
+  // Vérifie si la liste est vide
+  if (*liste == NULL) {
+    return; // Rien à faire si la liste est vide
+  }
 
-  return ;
+  // Si l'animal à supprimer est le premier de la liste
+  if (*liste == animal) {
+    // Met à jour la tête de liste pour sauter le premier animal
+    *liste = animal->suivant;
+    // Libère la mémoire de l'animal à supprimer
+    free(animal);
+    return;
+  }
+
+  /* Si l'animal à supprimer n'est pas le premier de la liste,
+  Recherche de l'animal précédent */
+  Animal *precedent = *liste;
+  while (precedent && precedent->suivant != animal) {
+    precedent = precedent->suivant;
+  }
+
+  // Si on a trouvé l'animal précédent, on met à jour les pointeurs
+  if (precedent) {
+    // Met à jour les pointeurs pour sauter l'animal à supprimer
+    precedent->suivant = animal->suivant;
+    // Libère la mémoire de l'animal à supprimer
+    free(animal);
+  }
 }
+
 
 /* A Faire. Part 1, exercice 6, question 7 */
 Animal* liberer_liste_animaux(Animal *liste) {
-   /*A Completer*/
-
-  return NULL;
+    while (liste) {
+        Animal *temp = liste;  // Stocke l'élément actuel
+        liste = liste->suivant;  // Avance dans la liste
+        free(temp);  // Libère l'élément actuel
+    }
+    return NULL;
 }
 
 /* Fourni: part 1, exercice 4, question 4 */
@@ -86,7 +125,7 @@ void afficher_ecosys(Animal *liste_proie, Animal *liste_predateur) {
   /* on ajoute les predateurs */
   pa = liste_predateur;
   while (pa) {
-    assert(pa->x < SIZE_X && pa->y <SIZE_Y );
+    assert(pa->x < SIZE_X && pa->y <SIZE_Y ); /* Vérifie que les coordonnées de l'animal sont à l'intérieur du monde */
     if ((ecosys[pa->x][pa->y] == '@') || (ecosys[pa->x][pa->y] == '*')) { /* proies aussi present */
       ecosys[pa->x][pa->y] = '@';
     } else {

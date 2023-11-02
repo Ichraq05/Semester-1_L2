@@ -23,4 +23,42 @@ Q.4 Suivres les étapes suivantes :
 3. Recréation de l'exécutable "ecosys" en liant le main_ecosys.o existant avec le nouveau ecosys.o
    --> gcc main_ecosys.o ecosys.o -o ecosys
 
+_____________________________________________________________________________________________
 
+§ Compiler le programme "tests_ecosys", exécutez la commande suivante :
+- make tests_ecosys
+
+§ Compiler le programme "ecosys", exécutez la commande suivante :
+- make ecosys
+Les exécutables "tests_ecosys" et "ecosys" seront générés dans le même répertoire.
+
+Vous pouvez exécuter l'un de ces programmes en utilisant la commande suivante, par exemple :
+./tests_ecosys
+ou
+./ecosys
+Assurez-vous que vous êtes dans le même répertoire que les exécutables pour les exécuter.
+
+make tests_ecosys2
+./tests_ecosys2
+valgrind ./tests_ecosys2
+
+- make clean
+Cela supprimera les fichiers objets temporaires et les exécutables générés.
+
+
+_________________IMPORTANT !!!______________________
+Pour verifier qu’il n’y a pas de fuite m ´ emoire, il faut utiliser l’utilitaire valgrind. Lancez votre programme avec lui ´
+(en tapant valgrind puis votre programme - ex : valgrind ./tests ecosys2). L’objectif est de n’avoir
+aucun octet qui soit perdu :
+==66002== LEAK SUMMARY:
+==66002== definitely lost: 0 bytes in 0 blocks
+==66002== indirectly lost: 0 bytes in 0 blocks
+
+Je que j'ai eu : 
+==33803== HEAP SUMMARY:
+==33803==     in use at exit: 0 bytes in 0 blocks
+==33803==   total heap usage: 41 allocs, 41 frees, 2,304 bytes allocated
+==33803== 
+==33803== All heap blocks were freed -- no leaks are possible
+
+Donc ca a marché.
