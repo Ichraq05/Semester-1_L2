@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "ecosys.h"
 
 #define NB_PROIES 20
@@ -30,6 +31,16 @@ int main(void) {
         liste_predateur = ajouter_en_tete_animal(liste_predateur, creer_animal(x_predateur, y_predateur, energie));
     }
 
+    // Écrivez l'écosystème dans un fichier
+    ecrire_ecosys("ecosystem.txt", liste_predateur, liste_proie);
+
+    // Libérez la mémoire actuelle des listes
+    liste_proie = liberer_liste_animaux(liste_proie);
+    liste_predateur = liberer_liste_animaux(liste_predateur);
+
+    // Lisez l'écosystème depuis le fichier et mettez-le dans de nouvelles listes
+    lire_ecosys("ecosystem.txt", &liste_predateur, &liste_proie);
+
     // Supprime les 1ers proies et prédateurs de la liste
     if (liste_proie) {
         enlever_animal(&liste_proie, liste_proie); // Supprime la 1er proie
@@ -42,18 +53,18 @@ int main(void) {
     }
 
     // Si on veut enlever au milieu de la liste 
-    int n= 5; // Numéro de l'animal à supprimer (dans ce cas, le 5e)
+    /*int n= 5; // Numéro de l'animal à supprimer (dans ce cas, le 5e)
 
-    Animal *animal_a_supprimer = liste_proie; // Commencez par le premier animal de la liste
+    Animal *animal_a_supp = liste_proie; // Commencez par le premier animal de la liste
 
     // Parcourez la liste pour atteindre le 5e animal
-    for (int i = 1; i < n && animal_a_supprimer; i++) {
-        animal_a_supprimer = animal_a_supprimer->suivant;
+    for (int i = 1; i < n && animal_a_supp; i++) {
+        animal_a_supp = animal_a_supp->suivant;
     }
     // Si animal_a_supprimer n'est pas NULL, cela signifie que le 5e animal a été trouvé
-    if (animal_a_supprimer) {
-        enlever_animal(&liste_proie, animal_a_supprimer);
-    }
+    if (animal_a_supp) {
+        enlever_animal(&liste_proie, animal_a_supp);
+    }*/
 
 
     // Vérifie le nombre de proies et de prédateurs

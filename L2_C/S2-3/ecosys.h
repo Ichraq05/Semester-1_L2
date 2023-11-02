@@ -4,6 +4,12 @@
 #define SIZE_X 20
 #define SIZE_Y 50
 
+/* Parametres globaux de l’ecosysteme (externes dans le ecosys.h)*/
+extern float p_ch_dir; //probabilite de changer de direction de deplacement
+extern float p_reproduce_proie;
+extern float p_reproduce_predateur;
+extern int temps_repousse_herbe;
+
 typedef struct _animal {
   int x;
   int y;
@@ -25,7 +31,8 @@ Animal* liberer_liste_animaux(Animal *liste);
 void afficher_ecosys(Animal *liste_predateur, Animal *liste_proie);
 
 
-
+void ecrire_ecosys(const char *nom_fichier, Animal *liste_predateur, Animal *liste_proie);
+void lire_ecosys(const char *nom_fichier, Animal **liste_predateur, Animal **liste_proie);
 void bouger_animaux(Animal *la);
 Animal *animal_en_XY(Animal *l, int x, int y);
 void rafraichir_predateurs(Animal **liste_predateur, Animal **liste_proie);
