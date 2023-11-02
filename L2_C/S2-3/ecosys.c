@@ -70,8 +70,8 @@ void afficher_ecosys(Animal *liste_proie, Animal *liste_predateur) {
   Animal *pa=NULL;
 
   /* on initialise le tableau */
-  for (i = 0; i < SIZE_Y; ++i) {
-    for (j = 0; j < SIZE_X; ++j) {
+  for (i = 0; i < SIZE_X; ++i) {
+    for (j = 0; j < SIZE_Y; ++j) {
       ecosys[i][j]=' ';
     }
   }
@@ -86,29 +86,30 @@ void afficher_ecosys(Animal *liste_proie, Animal *liste_predateur) {
   /* on ajoute les predateurs */
   pa = liste_predateur;
   while (pa) {
-      if ((ecosys[pa->x][pa->y] == '@') || (ecosys[pa->x][pa->y] == '*')) { /* proies aussi present */
-        ecosys[pa->x][pa->y] = '@';
-      } else {
-        ecosys[pa->x][pa->y] = 'O';
-      }
+    assert(pa->x < SIZE_X && pa->y <SIZE_Y );
+    if ((ecosys[pa->x][pa->y] == '@') || (ecosys[pa->x][pa->y] == '*')) { /* proies aussi present */
+      ecosys[pa->x][pa->y] = '@';
+    } else {
+      ecosys[pa->x][pa->y] = 'O';
+    }
     pa = pa->suivant;
   }
 
   /* on affiche le tableau */
   printf("+");
-  for (j = 0; j < SIZE_X; ++j) {
+  for (j = 0; j < SIZE_Y; ++j) {
     printf("-");
   }  
   printf("+\n");
-  for (i = 0; i < SIZE_Y; ++i) {
+  for (i = 0; i < SIZE_X; ++i) {
     printf("|");
-    for (j = 0; j < SIZE_X; ++j) {
+    for (j = 0; j < SIZE_Y; ++j) {
       putchar(ecosys[i][j]);
     }
     printf("|\n");
   }
   printf("+");
-  for (j = 0; j<SIZE_X; ++j) {
+  for (j = 0; j<SIZE_Y; ++j) {
     printf("-");
   }
   printf("+\n");
@@ -118,7 +119,6 @@ void afficher_ecosys(Animal *liste_proie, Animal *liste_predateur) {
   printf("Nb proies : %5d\tNb predateurs : %5d\n", nbproie, nbpred);
 
 }
-
 
 void clear_screen() {
   printf("\x1b[2J\x1b[1;1H");  /* code ANSI X3.4 pour effacer l'ecran */

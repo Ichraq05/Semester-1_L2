@@ -4,6 +4,7 @@
     },
     "files.associations": {
         "limits": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "ecosys.h": "c"
     }
 }
