@@ -42,6 +42,9 @@ make tests_ecosys2
 ./tests_ecosys2
 valgrind ./tests_ecosys2
 
+make ecosys
+./ecosys
+
 - make clean
 Cela supprimera les fichiers objets temporaires et les exécutables générés.
 

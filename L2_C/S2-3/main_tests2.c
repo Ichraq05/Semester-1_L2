@@ -31,15 +31,10 @@ int main(void) {
         liste_predateur = ajouter_en_tete_animal(liste_predateur, creer_animal(x_predateur, y_predateur, energie));
     }
 
-    // Écrivez l'écosystème dans un fichier
-    ecrire_ecosys("ecosystem.txt", liste_predateur, liste_proie);
+    // Ajoute en plus un predateur
+    ajouter_animal(2,6,energie,&liste_predateur); 
 
-    // Libérez la mémoire actuelle des listes
-    liste_proie = liberer_liste_animaux(liste_proie);
-    liste_predateur = liberer_liste_animaux(liste_predateur);
-
-    // Lisez l'écosystème depuis le fichier et mettez-le dans de nouvelles listes
-    lire_ecosys("ecosystem.txt", &liste_predateur, &liste_proie);
+    afficher_ecosys(liste_proie, liste_predateur);
 
     // Supprime les 1ers proies et prédateurs de la liste
     if (liste_proie) {
@@ -75,6 +70,18 @@ int main(void) {
     printf("Nombre de prédateurs : %d\n", nb_predateurs);
 
     // Affiche l'état de l'écosystème
+    afficher_ecosys(liste_proie, liste_predateur);
+
+        // Écrivez l'écosystème dans un fichier
+    ecrire_ecosys("ecosystem.txt", liste_predateur, liste_proie);
+
+    // Libérez la mémoire actuelle des listes
+    liste_proie = liberer_liste_animaux(liste_proie);
+    liste_predateur = liberer_liste_animaux(liste_predateur);
+
+    // Lisez l'écosystème depuis le fichier et mettez-le dans de nouvelles listes
+    lire_ecosys("ecosystem.txt", &liste_predateur, &liste_proie);
+
     afficher_ecosys(liste_proie, liste_predateur);
 
     // Libére la mémoire des listes d'animaux

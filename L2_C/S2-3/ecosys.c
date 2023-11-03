@@ -173,105 +173,100 @@ void clear_screen() {
 /* PARTIE 2*/
 
 /* A Faire */
-void ecrire_ecosys(const char *nom_fichier, Animal *liste_predateur, Animal *liste_proie) {
-    // Ouvre le fichier en mode écriture
-    FILE *fichier = fopen(nom_fichier, "w");
-    if (fichier == NULL) {
-        fprintf(stderr, "Erreur : impossible d'ouvrir le fichier %s.\n", nom_fichier);
-        return;
-    }
+void ecrire_ecosys(const char *nom_fichier, Animal *liste_predateur, Animal *liste_proie){
 
-    // Ecrit les proies
-    fprintf(fichier, "<proies>\n");
-    Animal *proie = liste_proie;
-    while (proie) {
-        // Ecrit les coordonnées, la direction et l'énergie de la proie
-        fprintf(fichier, "x=%d y=%d dir=[%d %d] e=%f\n", proie->x, proie->y, proie->dir[0], proie->dir[1], proie->energie);
-        proie = proie->suivant;
-    }
-    fprintf(fichier, "</proies>\n");
+  //on ouvre le fichier en mode ecriture
+  FILE *file = fopen(nom_fichier, "w");
 
-    // Ecrit les prédateurs
-    fprintf(fichier, "<predateurs>\n");
-    Animal *predateur = liste_predateur;
-    while (predateur) {
-        // Ecrit les coordonnées, la direction et l'énergie du prédateur
-        fprintf(fichier, "x=%d y=%d dir=[%d %d] e=%f\n", predateur->x, predateur->y, predateur->dir[0], predateur->dir[1], predateur->energie);
-        predateur = predateur->suivant;
-    }
-    fprintf(fichier, "</predateurs>\n");
+  //on y ecrit
+  fprintf(file, "<proies>\n");
+  Animal * l1 = liste_proie;
+  while(l1){
+    fprintf(file, "x=%d y=%d dir=[%d %d] e=%f\n",l1->x,l1->y,l1->dir[0],l1->dir[1],l1->energie);
+    l1=l1->suivant;
+  }
+  fprintf(file, "</proies>\n<predateurs>\n");
+  Animal * l2 = liste_predateur;
+  while(l2){
+    fprintf(file, "x=%d y=%d dir=[%d %d] e=%f\n",l2->x,l2->y,l2->dir[0],l2->dir[1],l2->energie);
+    l2=l2->suivant;
+  }
+  fprintf(file, "</predateurs>\n");
 
-    // Ferme le fichier
-    fclose(fichier);
+  fclose(file);
 }
 
 /* A Faire */
-void lire_ecosys(const char *nom_fichier, Animal **liste_predateur, Animal **liste_proie) {
-    // Ouvre le fichier en mode lecture
-    FILE *fichier = fopen(nom_fichier, "r");
-    if (fichier == NULL) {
-        fprintf(stderr, "Erreur : impossible d'ouvrir le fichier %s.\n", nom_fichier);
-        return;
+void lire_ecosys(const char *nom_fichier, Animal **liste_predateur, Animal **liste_proie){
+
+  //on ouvre le fichier en mode lecture
+  FILE *file = fopen(nom_fichier, "r");
+
+  //en cas d'erreur
+  if (file == NULL) {
+    printf("erreur fichier non ouvrable (ou non existant).\n");
+    return;
+  }
+
+  //une variable pour indiquer si le fichier est vide
+  int vide = 1;
+
+  char line[200]; 
+
+  while (fgets(line, sizeof(line), file) != NULL) {
+
+    //on est entré dans la boucle donc le fichier n'est pas vide
+    vide = 0;
+    if (strcmp(line, "<proies>\n") == 0){
+      while (fgets(line, sizeof(line), file) != NULL && strcmp(line, "</proies>\n") != 0){
+        int x,y,dx,dy;
+        float energie;
+        sscanf(line, "x=%d y=%d dir=[%d %d] e=%f\n", &x, &y, &dx, &dy, &energie);
+        ajouter_animal(x,y,energie,liste_proie);
+        (*liste_proie)->dir[0]=dx;
+        (*liste_proie)->dir[1]=dy;
+      }
     }
-
-    char ligne[256];
-    char *type = NULL; // Pour identifier le type de liste (proies ou prédateurs)
-
-    while (fgets(ligne, sizeof(ligne), fichier) != NULL) {
-        // Supprime le caractère de saut de ligne à la fin de la ligne lue
-        ligne[strcspn(ligne, "\n")] = '\0';
-
-        // Si la ligne commence par '<', c'est une balise indiquant le type de liste
-        if (ligne[0] == '<') {
-            // Récupère le type de liste (proies ou prédateurs)
-            type = &ligne[1]; // Saute le '<'
-            if (ligne[strlen(ligne) - 1] == '>') {
-                ligne[strlen(ligne) - 1] = '\0'; // Supprime le '>'
-            }
-        }
-        // Sinon, c'est une ligne de données d'animal
-        else if (type != NULL) {
-            // Crée un nouvel animal à partir de la ligne lue
-            int x, y;
-            float energie;
-            int dir_x, dir_y;
-            sscanf(ligne, "x=%d y=%d dir=[%d %d] e=%f", &x, &y, &dir_x, &dir_y, &energie);
-            Animal *animal = creer_animal(x, y, energie);
-            animal->dir[0] = dir_x;
-            animal->dir[1] = dir_y;
-
-            // Ajoute l'animal à la bonne liste chaînée (proies ou prédateurs)
-            if (strcmp(type, "proies") == 0) {
-                *liste_proie = ajouter_en_tete_animal(*liste_proie, animal);
-            } else if (strcmp(type, "predateurs") == 0) {
-                *liste_predateur = ajouter_en_tete_animal(*liste_predateur, animal);
-            }
-        }
+    if (strcmp(line, "<predateurs>\n") == 0){
+      while (fgets(line, sizeof(line), file) != NULL && strcmp(line, "</predateurs>\n") != 0){
+        int x,y,dx,dy;
+        float energie;
+        sscanf(line, "x=%d y=%d dir=[%d %d] e=%f\n", &x, &y, &dx, &dy, &energie);
+        ajouter_animal(x,y,energie,liste_predateur);
+        (*liste_predateur)->dir[0]=dx;
+        (*liste_predateur)->dir[1]=dy;
+      }
     }
+  }
 
-    // Ferme le fichier
-    fclose(fichier);
+  //si le fichier est vide
+  if(vide){
+    printf("le fichier %s est vide\n",nom_fichier);
+  }
+
+  fclose(file);
 }
 
 /* Part 2. Exercice 4, question 1 */
-/* Part 2. Exercice 5, question 1 */
 void bouger_animaux(Animal *la) {
-    Animal *prev = NULL;
-    
-    while (la != NULL) {
+    while (la) {  // Parcours de la liste des animaux
+
         // Vérifie si l'animal change de direction avec une probabilité p_ch_dir
-        if ((double)rand() / RAND_MAX < p_ch_dir) {
+        if (rand() * 1.0 / RAND_MAX < p_ch_dir) {
             int old_dir_x = la->dir[0];
             int old_dir_y = la->dir[1];
 
-            // Choisi une nouvelle direction différente de l'ancienne
+            // Choisit une nouvelle direction différente de l'ancienne
             while (la->dir[0] == old_dir_x && la->dir[1] == old_dir_y) {
-                la->dir[0] = rand() % 3 - 1;  // Nouvelle direction en x : -1, 0 ou 1
-                la->dir[1] = rand() % 3 - 1;  // Nouvelle direction en y : -1, 0 ou 1
+                // Génère une nouvelle direction en x : -1, 0 ou 1
+                la->dir[0] = rand() % 3 - 1;
+
+                // Génère une nouvelle direction en y : -1, 0 ou 1
+                la->dir[1] = rand() % 3 - 1;
             }
         }
 
-        // MAJ des coordonnées en appliquant la direction (monde torique)
+        // Met à jour les coordonnées en appliquant la direction (monde torique)
         la->x = (la->x + la->dir[0] + SIZE_X) % SIZE_X;
         la->y = (la->y + la->dir[1] + SIZE_Y) % SIZE_Y;
 
@@ -281,25 +276,15 @@ void bouger_animaux(Animal *la) {
         // Décrémente l'énergie de l'animal
         la->energie--;
 
-        // Si l'énergie atteint 0, l'animal meurt
+        // Vérifie si l'énergie de l'animal atteint 0 (l'animal meurt)
         if (la->energie <= 0) {
-            // Supprimer l'animal de la liste
-            if (prev != NULL) {
-                prev->suivant = la->suivant;
-                free(la);
-                la = prev->suivant;
-            } else {
-                // Si c'est le 1er animal de la liste, MAJ de la tête de liste
-                Animal *temp = la;
-                la = la->suivant;
-                free(temp);
-            }
-        } else {
-            prev = la;
-            la = la->suivant;
+            // Gérez la suppression de l'animal (non implémentée ici)
         }
+
+        la = la->suivant;  // Passe à l'animal suivant dans la liste
     }
 }
+
 
 
 
