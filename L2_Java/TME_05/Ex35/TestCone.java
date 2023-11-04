@@ -1,6 +1,6 @@
 public class TestCone {
     public static void main(String[] args) {
-        System.out.println("Nombre de Cones : " + Cone.getNbCones());
+        System.out.println("Nombre de Cones créés: " + Cone.getNbCones());
 
         Cone c1 = new Cone(5.4,7.2);
         Cone c2 = new Cone();
@@ -14,6 +14,6 @@ public class TestCone {
         System.out.println(String.format("Cone = %.2f, h = %.2f, V = %.2f", c2.getR(), c2.getH(), c2.getVolume()));
     
 
-        System.out.println("Nombre de Cones : " + Cone.getNbCones());
+        System.out.println("Nombre de Cones créés : " + Cone.getNbCones());
     }   
 }
