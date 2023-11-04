@@ -1,5 +1,3 @@
-package L2_Java.TME_04.Ex28;
-
 public class Assiette {
 
     private int diametre;

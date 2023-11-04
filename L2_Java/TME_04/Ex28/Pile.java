@@ -1,5 +1,3 @@
-package L2_Java.TME_04.Ex28;
-
 public class Pile {
 
     private Assiette []tab;
@@ -49,7 +47,7 @@ public class Pile {
         if (nbA == 0) {
             return "Vide\n";
         }
-        String contenu = " ";
+        String contenu = "";
         for (int i = 0; i < nbA; i++) {
             contenu += "\\_____/ \n";
         }
