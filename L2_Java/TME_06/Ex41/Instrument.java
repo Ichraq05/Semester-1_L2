@@ -1,4 +1,4 @@
-public abstract class Instrument {
+public class Instrument { //2e méthode, public abstract class Instrument
     private int prix;
     private double poids;
 
@@ -11,6 +11,10 @@ public abstract class Instrument {
         return "poids : "+ poids + " kg, prix : "+ prix + " eruos";
     }
 
-    public abstract void jouer();
+    public void jouer(){
+        System.out.println("L'instrument joue");
+    }
+
+    // public abstract jouer(); <-- 2e methode, déclarer comme abstraite pour que orchestre accède aux instruments (guitare, piano ...)
     
 }
