@@ -1,20 +1,16 @@
-package Ex41;
-
-public class Instrument{
+public abstract class Instrument {
     private int prix;
-    private int poids;
+    private double poids;
 
-    public Instrument(int prix, int poids){
+    public Instrument(int prix, double poids){
         this.prix = prix;
         this.poids = poids;
     }
 
     public String toString(){
-        return "poids : "+ poids +" kg, prix : "+ prix +" euros.";
+        return "poids : "+ poids + " kg, prix : "+ prix + " eruos";
     }
 
-    public void jouer(){
-        
-    }
+    public abstract void jouer();
+    
 }
-
