@@ -13,6 +13,13 @@ public class TestVehicule {
         voit1.approvisionner(40);
         voit1.transporter(7,200);
         voit1.transporter(5,200);
-    }
+
+        Camion cam1 = new Camion(500, 70, "Mercedes");
+
+        System.out.println("\n" + cam1.toString());
+        cam1.transporter("tuiles",500);
+        cam1.approvisionner(40);
+        cam1.transporter("tuiles",500);
+        }
     
 }
