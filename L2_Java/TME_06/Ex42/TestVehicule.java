@@ -20,6 +20,16 @@ public class TestVehicule {
         cam1.transporter("tuiles",500);
         cam1.approvisionner(40);
         cam1.transporter("tuiles",500);
+
+        System.out.println();
+        
+        Vehicule[] tab = new Vehicule[3];
+        tab[0] = v1;
+        tab[1] = voit1;
+        tab[2] = cam1;
+
+        for (Vehicule x : tab){
+            x.rouler(10);
         }
-    
+    }
 }
