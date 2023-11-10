@@ -9,16 +9,15 @@ let rec sum_impairs(n : int) : int =
 let x = sum_impairs 2;;
 let x = sum_impairs 4;;
 
-
 (*_____________________________QUESTION 2_________________________________*)
 
 let rec sum_impairs_inf(n : int) : int =
-  if n-1 < 1 then
+  if n = 0 then
     0
-  else if (n-1) mod 2 = 0 then
+  else if n mod 2 = 0 then
     sum_impairs_inf(n-1)
   else
-    n-1 + sum_impairs_inf(n-1)
+    n + sum_impairs_inf(n-1)
 
 let x = sum_impairs_inf 1;;
 let x = sum_impairs_inf 8;;
