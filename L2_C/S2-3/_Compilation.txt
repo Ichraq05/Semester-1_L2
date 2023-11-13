@@ -38,6 +38,9 @@ ou
 ./ecosys
 Assurez-vous que vous êtes dans le même répertoire que les exécutables pour les exécuter.
 
+make tests_ecosys
+./tests_ecosys
+
 make tests_ecosys2
 ./tests_ecosys2
 valgrind ./tests_ecosys2
@@ -51,7 +54,7 @@ Cela supprimera les fichiers objets temporaires et les exécutables générés.
 
 
 _________________IMPORTANT !!!______________________
-Pour verifier qu’il n’y a pas de fuite m ´ emoire, il faut utiliser l’utilitaire valgrind. Lancez votre programme avec lui ´
+Pour verifier qu’il n’y a pas de fuite memoire, il faut utiliser l’utilitaire valgrind. Lancez votre programme avec lui
 (en tapant valgrind puis votre programme - ex : valgrind ./tests ecosys2). L’objectif est de n’avoir
 aucun octet qui soit perdu :
 ==66002== LEAK SUMMARY:

@@ -46,7 +46,7 @@ void ajouter_animal(int x, int y,float energie, Animal **liste_animal) {
 
   // Ajoute le nouvel animal en tête de la liste chaînée 
   nv_animal->suivant = *liste_animal;
-  *liste_animal = nv_animal;
+  *liste_animal = nv_animal; // Avec cette ligne, nv_animal est le premier élément de la liste chaînée. 
 }
 
 
@@ -256,9 +256,9 @@ void lire_ecosys(const char *nom_fichier, Animal **liste_predateur, Animal **lis
 
 /* Part 2. Exercice 4, question 1 */
 void bouger_animaux(Animal *la) {
-    while (la) {  // Parcours de la liste des animaux
+    while (la) {  // Parcours de la liste des animaux tant que que c'est pas = NULL
 
-        // Vérifie si l'animal change de direction avec une probabilité p_ch_dir
+        // Vérifie si l'animal change de direction avec une proba p_ch_dir
         if (rand() * 1.0 / RAND_MAX < p_ch_dir) {
             int old_dir_x = la->dir[0];
             int old_dir_y = la->dir[1];
