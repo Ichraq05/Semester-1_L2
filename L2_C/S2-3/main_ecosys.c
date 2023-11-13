@@ -21,6 +21,9 @@ int main(void) {
     Animal *liste_proie = NULL;
     Animal *liste_predateur = NULL;
 
+    // Déclaration du tableau d'herbe
+    int herbe[SIZE_X][SIZE_Y];
+
 
     // Créer 20 proies à des positions aléatoires
     for (int i = 0; i < NB_PROIES; i++) {
@@ -37,18 +40,29 @@ int main(void) {
         liste_predateur = ajouter_en_tete_animal(liste_predateur, creer_animal(x_pred, y_pred, energie_pred));
     }
 
+     // Initialisation du tableau d'herbe à zéro
+    for (int i = 0; i < SIZE_X; ++i) {
+        for (int j = 0; j < SIZE_Y; ++j) {
+            herbe[i][j] = 0;
+        }
+    }
+
     // Boucle qui va stopper quand il n'y a plus de proies ou que le nombre maximal d'itérations est atteint
     int iteration = 0;
+    int monde[SIZE_X][SIZE_Y] = {0};  // Initialise le tableau monde avec des zéros
 
     while ((liste_proie != NULL || liste_predateur != NULL) && iteration < MAX_ITERATIONS) {
         // Affiche l'état de l'écosystème
         printf("=== Écosystème après l'itération %d ===\n", iteration);
         afficher_ecosys(liste_proie, liste_predateur);
         
-        // Met à jour les proies
-        rafraichir_proies(&liste_proie, NULL);
+        // Mettre à jour le monde (repousse de l'herbe)
+        rafraichir_monde(monde);
 
-        // Met à jour les prédateurs avec la liste des proies
+        // Mettre à jour les proies
+        rafraichir_proies(&liste_proie, monde);
+
+        // Mettre à jour les prédateurs avec la liste des proies
         rafraichir_predateurs(&liste_predateur, &liste_proie);
 
         // Pause pour voir l'état de l'écosystème

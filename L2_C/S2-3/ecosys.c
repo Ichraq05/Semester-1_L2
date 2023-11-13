@@ -5,9 +5,9 @@
 #include "ecosys.h"
 
 /* Parametres globaux de l’ecosysteme (externes dans le ecosys.h)*/
-float p_ch_dir=0.01; //probabilite de changer de direction de deplacement
-float p_reproduce_proie=0.4;
-float p_reproduce_predateur=0.5;
+float p_ch_dir=0.3; //probabilite de changer de direction de deplacement
+float p_reproduce_proie=0.2;
+float p_reproduce_predateur=0.05;
 int temps_repousse_herbe=-15;
 
 /* PARTIE 1*/
@@ -326,6 +326,12 @@ void rafraichir_proies(Animal **liste_proie, int monde[SIZE_X][SIZE_Y]) {
         // Baisser l'énergie de la proie de 1
         proie->energie--;
 
+        // Si la proie est sur une case avec de l'herbe, elle mange
+        if (monde[proie->x][proie->y] > 0) {
+            proie->energie += monde[proie->x][proie->y];  // Gagne de l'énergie
+            monde[proie->x][proie->y] = temps_repousse_herbe;  // Repousse de l'herbe
+        }
+
         // Si l'énergie de la proie est inférieure ou égale à 0, la supprimer
         if (proie->energie <= 0) {
             proie_suivante = proie->suivant;
@@ -395,10 +401,12 @@ void rafraichir_predateurs(Animal **liste_predateur, Animal **liste_proie) {
 
 
 /* Part 2. Exercice 5, question 2 */
-void rafraichir_monde(int monde[SIZE_X][SIZE_Y]){
-
-   /*A Completer*/
-
-
+void rafraichir_monde(int monde[SIZE_X][SIZE_Y]) {
+    for (int i = 0; i < SIZE_X; ++i) {
+        for (int j = 0; j < SIZE_Y; ++j) {
+            monde[i][j]++;  // Incrémente la quantité d'herbe dans chaque case
+        }
+    }
 }
+
 
