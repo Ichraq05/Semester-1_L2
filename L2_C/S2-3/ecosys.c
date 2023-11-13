@@ -308,13 +308,34 @@ void reproduce(Animal **liste_animal, float p_reproduce) {
 }
 
 
-
-
 /* Part 2. Exercice 6, question 1 */
 void rafraichir_proies(Animal **liste_proie, int monde[SIZE_X][SIZE_Y]) {
-    /*A Completer*/
+    // Faire bouger les proies
+    bouger_animaux(*liste_proie);
 
+    // Parcourir la liste de proies
+    Animal *proie = *liste_proie;
+    Animal *proie_suivante;
+
+    while (proie != NULL) {
+        // Baisser l'énergie de la proie de 1
+        proie->energie--;
+
+        // Si l'énergie de la proie est inférieure ou égale à 0, la supprimer
+        if (proie->energie <= 0) {
+            proie_suivante = proie->suivant;
+            enlever_animal(liste_proie, proie);
+            proie = proie_suivante;
+        } else {
+            // Sinon, passer à la proie suivante dans la liste
+            proie = proie->suivant;
+        }
+    }
+
+    // Faire appel à la fonction de reproduction des proies
+    reproduce(liste_proie, p_reproduce_proie);
 }
+
 
 /* Part 2. Exercice 7, question 1 */
 Animal *animal_en_XY(Animal *l, int x, int y) {

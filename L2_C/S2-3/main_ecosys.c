@@ -4,65 +4,49 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-#include <strings.h>
+#include <strings.h> // Inclusion pour usleep
 #include "ecosys.h"
 
 
 
 #define NB_PROIES 20
 #define NB_PREDATEURS 20
-#define T_WAIT 40000
-
-#include <assert.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <unistd.h>
-#include <strings.h>
-#include "ecosys.h"
-
-#define T_WAIT 40000
+#define MAX_ITERATIONS 200
+#define T_WAIT 40000 // Temps de pause en microsecondes (40 ms)
 
 int main(void) {
     srand(time(NULL));
 
-    // Initialiser l'écosystème
-    Animal *liste_animal = NULL;
-    float p_reproduce = 1.0;  // Taux de reproduction à 1 pour tester
+    // Créer une liste pour les proies
+    Animal *liste_proie = NULL;
 
-    // Créer un animal à une position donnée avec une énergie de 10
-    int initial_x = 5;  // Position initiale en x
-    int initial_y = 5;  // Position initiale en y
-    Animal *animal = creer_animal(initial_x, initial_y, 10);
-    liste_animal = ajouter_en_tete_animal(liste_animal, animal);
-
-    // Afficher l'état initial de l'écosystème
-    printf("=== État initial de l'écosystème ===\n");
-    afficher_ecosys(liste_animal, NULL);
-
-    // Tester la fonction de déplacement
-    printf("\n=== Test de déplacement ===\n");
-    for (int i = 0; i < 3; i++) {  // Par exemple, effectuez le déplacement 5 fois
-        bouger_animaux(liste_animal);
-
-        // Afficher l'état après le déplacement
-        printf("État après déplacement %d :\n", i + 1);
-        afficher_ecosys(liste_animal, NULL);
+    // Créer 20 proies à des positions aléatoires
+    for (int i = 0; i < NB_PROIES; i++) {
+        int x_proie = rand() % SIZE_X;
+        int y_proie = rand() % SIZE_Y;
+        int energie_proie = 10; // Énergie initiale des proies
+        liste_proie = ajouter_en_tete_animal(liste_proie, creer_animal(x_proie, y_proie, energie_proie));
     }
 
-    // Tester la fonction de reproduction
-    printf("\n=== Test de reproduction ===\n");
-    for (int i = 0; i < 3; i++) {  // Par exemple, effectuez la reproduction 5 fois
-        reproduce(&liste_animal, p_reproduce);
+    // Boucle qui s'arrête lorsqu'il n'y a plus de proies ou qu'on atteint le nombre maximal d'itérations
+    int iteration = 0;
 
-        // Afficher l'état après la reproduction
-        printf("État après reproduction %d :\n", i + 1);
-        afficher_ecosys(liste_animal, NULL);
+    while (liste_proie != NULL && iteration < MAX_ITERATIONS) {
+        // Mettre à jour les proies
+        rafraichir_proies(&liste_proie, NULL);
+
+        // Afficher l'état de l'écosystème
+        printf("=== Écosystème après l'itération %d ===\n", iteration);
+        afficher_ecosys(liste_proie, NULL);
+
+        // Pause pour permettre de visualiser l'état de l'écosystème
+        usleep(T_WAIT);
+
+        iteration++;
     }
 
-    // Libérer la mémoire de l'écosystème
-    liberer_liste_animaux(liste_animal);
+    // Libérer la mémoire des proies restantes
+    liberer_liste_animaux(liste_proie);
 
     return 0;
 }
