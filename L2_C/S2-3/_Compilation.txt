@@ -65,3 +65,11 @@ Je que j'ai eu :
 ==33803== All heap blocks were freed -- no leaks are possible
 
 Donc ca a marché.
+
+
+
+La partie parent->x + 1 et parent->y + 1 dans la création du nouvel animal (Animal *enfant = creer_animal(parent->x + 1, parent->y + 1, parent->energie / 2);) est simplement une façon de décaler légèrement la position du nouvel animal par rapport à celle du parent.
+
+L'idée ici est d'éviter que le nouvel animal ne soit créé exactement sur la même position que le parent. Si le nouvel animal était créé à la même position, il serait superposé au parent, et cela pourrait causer des problèmes dans la simulation, comme le fait que les deux animaux occupent la même case, ce qui n'est généralement pas souhaitable.
+
+En ajoutant "+1" à la position du parent, on s'assure que le nouvel animal est créé à une position voisine mais différente. Cela contribue à rendre la simulation plus réaliste en évitant les superpositions directes d'animaux lors de la reproduction.

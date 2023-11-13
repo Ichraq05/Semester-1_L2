@@ -29,6 +29,8 @@ Animal *creer_animal(int x, int y, float energie) {
 Animal *ajouter_en_tete_animal(Animal *liste, Animal *animal) {
   assert(animal);
   assert(!animal->suivant);
+
+  // Ajoute l'animal en tête de liste
   animal->suivant = liste;
   return animal;
 }
@@ -273,44 +275,38 @@ void bouger_animaux(Animal *la) {
         // Vérifie que les coordonnées restent dans les limites du monde
         assert(la->x >= 0 && la->y >= 0 && la->x < SIZE_X && la->y < SIZE_Y);
 
-        // Décrémente l'énergie de l'animal
-        la->energie--;
-
-        // Vérifie si l'énergie de l'animal atteint 0 (l'animal meurt)
-        if (la->energie <= 0) {
-            // Gérez la suppression de l'animal (non implémentée ici)
-        }
-
         la = la->suivant;  // Passe à l'animal suivant dans la liste
     }
 }
 
 
-
-
 /* Part 2. Exercice 4, question 3 */
 void reproduce(Animal **liste_animal, float p_reproduce) {
-    Animal *parent = *liste_animal;
-    Animal *nv_ne = NULL;
+    // Vérifie si la liste d'animaux est valide et non vide
+    if (liste_animal && *liste_animal) {
+        // Pointeur vers le parent, commence par le premier animal de la liste
+        Animal *parent = *liste_animal;
 
-    while (parent != NULL) {
-        // Vérifie si l'animal parent se reproduit avec une probabilité p_reproduce
-        if ((double)rand() / RAND_MAX < p_reproduce) {
-            // Crée un nouvel animal à la même position que le parent
-            nv_ne = creer_animal(parent->x, parent->y, parent->energie / 2);
+        // Parcours de la liste des animaux
+        while (parent != NULL) {
+            // Vérifie si le parent se reproduit avec une probabilité p_reproduce
+            if (rand() * 1.0 / RAND_MAX < p_reproduce) {
+                // Crée un nouvel animal à la position légèrement décalée du parent
+                Animal *enfant = creer_animal(parent->x + 1, parent->y + 1, parent->energie / 2);
 
-            // Ajoute le nouvel animal en tête de la liste
-            nv_ne->suivant = *liste_animal;
-            *liste_animal = nv_ne;
+                // Divise l'énergie du parent par 2
+                parent->energie /= 2;
+
+                // Ajoute le nouvel animal en tête de la liste
+                *liste_animal = ajouter_en_tete_animal(*liste_animal, enfant);
+            }
+
+            // Passe à l'animal suivant dans la liste
+            parent = parent->suivant;
         }
-
-        // Réduit l'énergie de l'animal parent
-        parent->energie /= 2;
-
-        // Passe à l'animal suivant dans la liste
-        parent = parent->suivant;
     }
 }
+
 
 
 
