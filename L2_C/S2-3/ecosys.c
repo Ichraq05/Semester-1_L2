@@ -123,25 +123,30 @@ void afficher_ecosys(Animal *liste_proie, Animal *liste_predateur) {
       ecosys[i][j]=' ';
     }
   }
-
   /* on ajoute les proies */
   pa = liste_proie;
   while (pa) {
-    ecosys[pa->x][pa->y] = '*';
-    pa=pa->suivant;
+    // Ajoutez des conditions pour assurer que les coordonnées restent dans les limites du tableau
+    if (pa->x >= 0 && pa->y >= 0 && pa->x < SIZE_X && pa->y < SIZE_Y) {
+      ecosys[pa->x][pa->y] = '*';
+    }
+    pa = pa->suivant;
   }
 
   /* on ajoute les predateurs */
   pa = liste_predateur;
   while (pa) {
-    assert(pa->x < SIZE_X && pa->y <SIZE_Y ); /* Vérifie que les coordonnées de l'animal sont à l'intérieur du monde */
-    if ((ecosys[pa->x][pa->y] == '@') || (ecosys[pa->x][pa->y] == '*')) { /* proies aussi present */
-      ecosys[pa->x][pa->y] = '@';
-    } else {
-      ecosys[pa->x][pa->y] = 'O';
+    // Ajoutez des conditions pour assurer que les coordonnées restent dans les limites du tableau
+    if (pa->x >= 0 && pa->y >= 0 && pa->x < SIZE_X && pa->y < SIZE_Y) {
+      if ((ecosys[pa->x][pa->y] == '@') || (ecosys[pa->x][pa->y] == '*')) {
+        ecosys[pa->x][pa->y] = '@';
+      } else {
+        ecosys[pa->x][pa->y] = 'O';
+      }
     }
     pa = pa->suivant;
   }
+
 
   /* on affiche le tableau */
   printf("+");
@@ -339,16 +344,55 @@ void rafraichir_proies(Animal **liste_proie, int monde[SIZE_X][SIZE_Y]) {
 
 /* Part 2. Exercice 7, question 1 */
 Animal *animal_en_XY(Animal *l, int x, int y) {
-    /*A Completer*/
-
-  return NULL;
-} 
+    while (l != NULL) {
+        if (l->x == x && l->y == y) {
+            // Une proie a été trouvée aux coordonnées (x, y)
+            return l;
+        }
+        l = l->suivant;
+    }
+    
+    // Aucune proie trouvée aux coordonnées (x, y)
+    return NULL;
+}
 
 /* Part 2. Exercice 7, question 2 */
 void rafraichir_predateurs(Animal **liste_predateur, Animal **liste_proie) {
-   /*A Completer*/
+    // Faire bouger les prédateurs
+    bouger_animaux(*liste_predateur);
 
+    // Parcourir la liste de prédateurs
+    Animal *predateur = *liste_predateur;
+    Animal *predateur_suivant;
+
+    while (predateur != NULL) {
+        // Baisser l'énergie du prédateur de 1
+        predateur->energie--;
+
+        // Vérifier s'il y a une proie sur la même case que le prédateur
+        Animal *proie_sur_case = animal_en_XY(*liste_proie, predateur->x, predateur->y);
+
+        if (proie_sur_case != NULL) {
+            // La proie est mangée, augmenter l'énergie du prédateur et supprimer la proie
+            predateur->energie += proie_sur_case->energie;
+            enlever_animal(liste_proie, proie_sur_case);
+        }
+
+        // Si l'énergie du prédateur est inférieure ou égale à 0, le supprimer
+        if (predateur->energie <= 0) {
+            predateur_suivant = predateur->suivant;
+            enlever_animal(liste_predateur, predateur);
+            predateur = predateur_suivant;
+        } else {
+            // Sinon, passer au prédateur suivant dans la liste
+            predateur = predateur->suivant;
+        }
+    }
+
+    // Faire appel à la fonction de reproduction des prédateurs
+    reproduce(liste_predateur, p_reproduce_predateur);
 }
+
 
 /* Part 2. Exercice 5, question 2 */
 void rafraichir_monde(int monde[SIZE_X][SIZE_Y]){

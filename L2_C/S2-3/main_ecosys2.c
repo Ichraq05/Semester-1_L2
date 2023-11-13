@@ -14,6 +14,11 @@
 #define MAX_ITERATIONS 200
 #define T_WAIT 40000 // Temps de pause en microsecondes (40 ms)
 
+
+/* A completer. Part 2:
+   * exercice 4, questions 2 et 4
+*/
+
 int main(void) {
     srand(time(NULL));
 

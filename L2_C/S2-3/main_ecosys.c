@@ -19,6 +19,8 @@ int main(void) {
 
     // Créer une liste pour les proies
     Animal *liste_proie = NULL;
+    Animal *liste_predateur = NULL;
+
 
     // Créer 20 proies à des positions aléatoires
     for (int i = 0; i < NB_PROIES; i++) {
@@ -28,16 +30,26 @@ int main(void) {
         liste_proie = ajouter_en_tete_animal(liste_proie, creer_animal(x_proie, y_proie, energie_proie));
     }
 
+    for (int i = 0; i < NB_PREDATEURS; i++) {
+        int x_pred = rand() % SIZE_X;
+        int y_pred = rand() % SIZE_Y;
+        int energie_pred = 10; // Énergie initiale des proies
+        liste_predateur = ajouter_en_tete_animal(liste_predateur, creer_animal(x_pred, y_pred, energie_pred));
+    }
+
     // Boucle qui s'arrête lorsqu'il n'y a plus de proies ou qu'on atteint le nombre maximal d'itérations
     int iteration = 0;
 
-    while (liste_proie != NULL && iteration < MAX_ITERATIONS) {
+    while ((liste_proie != NULL || liste_predateur != NULL) && iteration < MAX_ITERATIONS) {
+        // Afficher l'état de l'écosystème
+        printf("=== Écosystème après l'itération %d ===\n", iteration);
+        afficher_ecosys(liste_proie, liste_predateur);
+        
         // Mettre à jour les proies
         rafraichir_proies(&liste_proie, NULL);
 
-        // Afficher l'état de l'écosystème
-        printf("=== Écosystème après l'itération %d ===\n", iteration);
-        afficher_ecosys(liste_proie, NULL);
+        // Mettre à jour les prédateurs avec la liste des proies
+        rafraichir_predateurs(&liste_predateur, &liste_proie);
 
         // Pause pour permettre de visualiser l'état de l'écosystème
         usleep(T_WAIT);
@@ -47,6 +59,7 @@ int main(void) {
 
     // Libérer la mémoire des proies restantes
     liberer_liste_animaux(liste_proie);
+    liberer_liste_animaux(liste_predateur);
 
     return 0;
 }
