@@ -22,7 +22,7 @@
 int main(void) {
     srand(time(NULL));
 
-    // Initialiser l'écosystème
+    // On initialise l'écosystème
     Animal *liste_animal = NULL;
     float p_reproduce = 1.0;  // Taux de reproduction à 1 pour tester
 
@@ -32,31 +32,31 @@ int main(void) {
     Animal *animal = creer_animal(initial_x, initial_y, 10);
     liste_animal = ajouter_en_tete_animal(liste_animal, animal);
 
-    // Afficher l'état initial de l'écosystème
+    // Affiche l'état initial de l'écosystème
     printf("=== État initial de l'écosystème ===\n");
     afficher_ecosys(liste_animal, NULL);
 
-    // Tester la fonction de déplacement
+    // Teste la fonction de déplacement
     printf("\n=== Test de déplacement ===\n");
-    for (int i = 0; i < 3; i++) {  // Par exemple, effectuez le déplacement 5 fois
+    for (int i = 0; i < 3; i++) {  // Par exemple, on effectue le déplacement 3 fois
         bouger_animaux(liste_animal);
 
-        // Afficher l'état après le déplacement
+        // Affiche l'état après le déplacement
         printf("État après déplacement %d :\n", i + 1);
         afficher_ecosys(liste_animal, NULL);
     }
 
-    // Tester la fonction de reproduction
+    // Teste la fonction de reproduction
     printf("\n=== Test de reproduction ===\n");
-    for (int i = 0; i < 3; i++) {  // Par exemple, effectuez la reproduction 5 fois
+    for (int i = 0; i < 3; i++) {  // Par exemple, on effectue la reproduction 3 fois
         reproduce(&liste_animal, p_reproduce);
 
-        // Afficher l'état après la reproduction
+        // Affiche l'état après la reproduction
         printf("État après reproduction %d :\n", i + 1);
         afficher_ecosys(liste_animal, NULL);
     }
 
-    // Libérer la mémoire de l'écosystème
+    // Libére la mémoire de l'écosystème
     liberer_liste_animaux(liste_animal);
 
     return 0;

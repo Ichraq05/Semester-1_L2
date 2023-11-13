@@ -32,24 +32,24 @@ int main(void) {
         liste_proie = ajouter_en_tete_animal(liste_proie, creer_animal(x_proie, y_proie, energie_proie));
     }
 
-    // Boucle qui s'arrête lorsqu'il n'y a plus de proies ou qu'on atteint le nombre maximal d'itérations
+    // Boucle qui stop quand il n'y a plus de proies ou que le nombre maximal d'itérations est atteint
     int iteration = 0;
 
     while (liste_proie != NULL && iteration < MAX_ITERATIONS) {
-        // Mettre à jour les proies
+        // Met à jour les proies
         rafraichir_proies(&liste_proie, NULL);
 
-        // Afficher l'état de l'écosystème
+        // Affiche l'état de l'écosystème
         printf("=== Écosystème après l'itération %d ===\n", iteration);
         afficher_ecosys(liste_proie, NULL);
 
-        // Pause pour permettre de visualiser l'état de l'écosystème
+        // Pause pour voir l'état de l'écosystème
         usleep(T_WAIT);
 
         iteration++;
     }
 
-    // Libérer la mémoire des proies restantes
+    // Libére la mémoire des proies restantes
     liberer_liste_animaux(liste_proie);
 
     return 0;
