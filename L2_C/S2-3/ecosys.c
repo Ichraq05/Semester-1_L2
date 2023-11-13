@@ -126,7 +126,7 @@ void afficher_ecosys(Animal *liste_proie, Animal *liste_predateur) {
   /* on ajoute les proies */
   pa = liste_proie;
   while (pa) {
-    // Ajoutez des conditions pour assurer que les coordonnées restent dans les limites du tableau
+    /*assert(pa->x < SIZE_X && pa->y <SIZE_Y );*/ //Pour verifier que ca reste dans les limtes du monde
     if (pa->x >= 0 && pa->y >= 0 && pa->x < SIZE_X && pa->y < SIZE_Y) {
       ecosys[pa->x][pa->y] = '*';
     }
@@ -136,7 +136,7 @@ void afficher_ecosys(Animal *liste_proie, Animal *liste_predateur) {
   /* on ajoute les predateurs */
   pa = liste_predateur;
   while (pa) {
-    // Ajoutez des conditions pour assurer que les coordonnées restent dans les limites du tableau
+    /*assert(pa->x < SIZE_X && pa->y <SIZE_Y );*/ //Pour verifier que ca reste dans les limtes du monde
     if (pa->x >= 0 && pa->y >= 0 && pa->x < SIZE_X && pa->y < SIZE_Y) {
       if ((ecosys[pa->x][pa->y] == '@') || (ecosys[pa->x][pa->y] == '*')) {
         ecosys[pa->x][pa->y] = '@';
