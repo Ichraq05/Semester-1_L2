@@ -315,24 +315,24 @@ void reproduce(Animal **liste_animal, float p_reproduce) {
 
 /* Part 2. Exercice 6, question 1 */
 void rafraichir_proies(Animal **liste_proie, int monde[SIZE_X][SIZE_Y]) {
-    // Faire bouger les proies
+    // Les proies bougent
     bouger_animaux(*liste_proie);
 
-    // Parcourir la liste de proies
+    // Parcours la liste de proies
     Animal *proie = *liste_proie;
     Animal *proie_suivante;
 
     while (proie != NULL) {
-        // Baisser l'énergie de la proie de 1
+        // Baisser l'énergie de la proie de 1 par déplacement
         proie->energie--;
 
-        // Si la proie est sur une case avec de l'herbe, elle mange
+        // Si la proie est sur une case avec de l'herbe, elle en mange
         if (monde[proie->x][proie->y] > 0) {
-            proie->energie += monde[proie->x][proie->y];  // Gagne de l'énergie
-            monde[proie->x][proie->y] = temps_repousse_herbe;  // Repousse de l'herbe
+            proie->energie += monde[proie->x][proie->y];  // Gagne de l'énergie équivalent à la quantité d'herbe sur la case
+            monde[proie->x][proie->y] = temps_repousse_herbe;  // Temps rénitialisé pour l'herbe
         }
 
-        // Si l'énergie de la proie est inférieure ou égale à 0, la supprimer
+        // Si l'énergie de la proie est <= à 0, on la supprime
         if (proie->energie <= 0) {
             proie_suivante = proie->suivant;
             enlever_animal(liste_proie, proie);
@@ -343,7 +343,7 @@ void rafraichir_proies(Animal **liste_proie, int monde[SIZE_X][SIZE_Y]) {
         }
     }
 
-    // Faire appel à la fonction de reproduction des proies
+    // Appel la fonction de reproduction des proies
     reproduce(liste_proie, p_reproduce_proie);
 }
 
@@ -364,38 +364,38 @@ Animal *animal_en_XY(Animal *l, int x, int y) {
 
 /* Part 2. Exercice 7, question 2 */
 void rafraichir_predateurs(Animal **liste_predateur, Animal **liste_proie) {
-    // Faire bouger les prédateurs
+    // Les prédateurs bougent
     bouger_animaux(*liste_predateur);
 
-    // Parcourir la liste de prédateurs
+    // Parcours la liste de prédateurs
     Animal *predateur = *liste_predateur;
     Animal *predateur_suivant;
 
     while (predateur != NULL) {
-        // Baisser l'énergie du prédateur de 1
+        // Baisse l'énergie du prédateur de 1 par déplacement
         predateur->energie--;
 
-        // Vérifier s'il y a une proie sur la même case que le prédateur
+        // Vérifie s'il y a une proie sur la même case que le prédateur
         Animal *proie_sur_case = animal_en_XY(*liste_proie, predateur->x, predateur->y);
 
         if (proie_sur_case != NULL) {
-            // La proie est mangée, augmenter l'énergie du prédateur et supprimer la proie
+            // Le prédareur mange la proie et augmente son énergie, on supprime aussi la proie mangé
             predateur->energie += proie_sur_case->energie;
             enlever_animal(liste_proie, proie_sur_case);
         }
 
-        // Si l'énergie du prédateur est inférieure ou égale à 0, le supprimer
+        // Si l'énergie du prédateur est <= à 0, on le supprime
         if (predateur->energie <= 0) {
             predateur_suivant = predateur->suivant;
             enlever_animal(liste_predateur, predateur);
             predateur = predateur_suivant;
         } else {
-            // Sinon, passer au prédateur suivant dans la liste
+            // Sinon, passe au prédateur suivant dans la liste
             predateur = predateur->suivant;
         }
     }
 
-    // Faire appel à la fonction de reproduction des prédateurs
+    // Appel la fonction de reproduction des prédateurs
     reproduce(liste_predateur, p_reproduce_predateur);
 }
 

@@ -40,7 +40,7 @@ int main(void) {
         liste_predateur = ajouter_en_tete_animal(liste_predateur, creer_animal(x_pred, y_pred, energie_pred));
     }
 
-     // Initialisation du tableau d'herbe à zéro
+     // Initialise le tableau d'herbe à zéro
     for (int i = 0; i < SIZE_X; ++i) {
         for (int j = 0; j < SIZE_Y; ++j) {
             herbe[i][j] = 0;
