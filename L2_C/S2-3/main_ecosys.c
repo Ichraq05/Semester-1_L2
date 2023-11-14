@@ -9,21 +9,18 @@
 
 
 
-#define NB_PROIES 5
-#define NB_PREDATEURS 5 // On peut s'amsuer à modifier les coordonnée pour voir le comportement de l'écosysteme
+#define NB_PROIES 20
+#define NB_PREDATEURS 20 // On peut s'amsuer à modifier les coordonnée pour voir le comportement de l'écosysteme
 #define MAX_ITERATIONS 200
-#define T_WAIT 4000 // Temps de pause en microsecondes (40 ms)
+#define T_WAIT 40000 // Temps de pause en microsecondes (40 ms)
 
 int main(void) {
-    
-    srand(1);
+    srand(time(NULL));
+    //srand(1);
 
     // Créer une liste pour les proies
     Animal *liste_proie = NULL;
     Animal *liste_predateur = NULL;
-
-    // Déclaration du tableau d'herbe
-    //int herbe[SIZE_X][SIZE_Y];
 
 
     // Créer 20 proies à des positions aléatoires
@@ -41,12 +38,6 @@ int main(void) {
         liste_predateur = ajouter_en_tete_animal(liste_predateur, creer_animal(x_pred, y_pred, energie_pred));
     }
 
-     // Initialise le tableau d'herbe à zéro
-    /*for (int i = 0; i < SIZE_X; ++i) {
-        for (int j = 0; j < SIZE_Y; ++j) {
-            herbe[i][j] = 0;
-        }
-    }*/
 
     // Boucle qui va stopper quand il n'y a plus de proies ou que le nombre maximal d'itérations est atteint
     int iteration = 0;
@@ -55,7 +46,7 @@ int main(void) {
     while ((liste_proie != NULL || liste_predateur != NULL) && iteration < MAX_ITERATIONS) {
         
         // Mettre à jour le monde (repousse de l'herbe)
-        rafraichir_monde(monde);
+        rafraichir_monde(monde); // Pour avoir 0 proie et predateur, mettre rafraichir_monde en commentaire
 
         // Mettre à jour les proies
         rafraichir_proies(&liste_proie, monde);
