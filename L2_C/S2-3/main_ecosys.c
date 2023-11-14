@@ -12,9 +12,10 @@
 #define NB_PROIES 20
 #define NB_PREDATEURS 20 // On peut s'amsuer à modifier les coordonnée pour voir le comportement de l'écosysteme
 #define MAX_ITERATIONS 200
-#define T_WAIT 40000 // Temps de pause en microsecondes (40 ms)
+#define T_WAIT 4000 // Temps de pause en microsecondes (40 ms)
 
 int main(void) {
+    
     srand(time(NULL));
 
     // Créer une liste pour les proies
@@ -22,14 +23,14 @@ int main(void) {
     Animal *liste_predateur = NULL;
 
     // Déclaration du tableau d'herbe
-    int herbe[SIZE_X][SIZE_Y];
+    //int herbe[SIZE_X][SIZE_Y];
 
 
     // Créer 20 proies à des positions aléatoires
     for (int i = 0; i < NB_PROIES; i++) {
         int x_proie = rand() % SIZE_X;
         int y_proie = rand() % SIZE_Y;
-        int energie_proie = 10; // Énergie initiale des proies
+        int energie_proie = 1; // Énergie initiale des proies
         liste_proie = ajouter_en_tete_animal(liste_proie, creer_animal(x_proie, y_proie, energie_proie));
     }
 
@@ -41,11 +42,11 @@ int main(void) {
     }
 
      // Initialise le tableau d'herbe à zéro
-    for (int i = 0; i < SIZE_X; ++i) {
+    /*for (int i = 0; i < SIZE_X; ++i) {
         for (int j = 0; j < SIZE_Y; ++j) {
             herbe[i][j] = 0;
         }
-    }
+    }*/
 
     // Boucle qui va stopper quand il n'y a plus de proies ou que le nombre maximal d'itérations est atteint
     int iteration = 0;
@@ -54,6 +55,7 @@ int main(void) {
     while ((liste_proie != NULL || liste_predateur != NULL) && iteration < MAX_ITERATIONS) {
         // Affiche l'état de l'écosystème
         printf("=== Écosystème après l'itération %d ===\n", iteration);
+
         afficher_ecosys(liste_proie, liste_predateur);
         
         // Mettre à jour le monde (repousse de l'herbe)
