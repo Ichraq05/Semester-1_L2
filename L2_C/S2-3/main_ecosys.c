@@ -9,14 +9,14 @@
 
 
 
-#define NB_PROIES 20
-#define NB_PREDATEURS 20 // On peut s'amsuer à modifier les coordonnée pour voir le comportement de l'écosysteme
+#define NB_PROIES 5
+#define NB_PREDATEURS 5 // On peut s'amsuer à modifier les coordonnée pour voir le comportement de l'écosysteme
 #define MAX_ITERATIONS 200
 #define T_WAIT 4000 // Temps de pause en microsecondes (40 ms)
 
 int main(void) {
     
-    srand(time(NULL));
+    srand(1);
 
     // Créer une liste pour les proies
     Animal *liste_proie = NULL;
@@ -30,7 +30,7 @@ int main(void) {
     for (int i = 0; i < NB_PROIES; i++) {
         int x_proie = rand() % SIZE_X;
         int y_proie = rand() % SIZE_Y;
-        int energie_proie = 1; // Énergie initiale des proies
+        int energie_proie = 10; // Énergie initiale des proies
         liste_proie = ajouter_en_tete_animal(liste_proie, creer_animal(x_proie, y_proie, energie_proie));
     }
 
@@ -53,10 +53,6 @@ int main(void) {
     int monde[SIZE_X][SIZE_Y] = {0};  // Initialise le tableau monde avec des zéros
 
     while ((liste_proie != NULL || liste_predateur != NULL) && iteration < MAX_ITERATIONS) {
-        // Affiche l'état de l'écosystème
-        printf("=== Écosystème après l'itération %d ===\n", iteration);
-
-        afficher_ecosys(liste_proie, liste_predateur);
         
         // Mettre à jour le monde (repousse de l'herbe)
         rafraichir_monde(monde);
@@ -66,6 +62,11 @@ int main(void) {
 
         // Mettre à jour les prédateurs avec la liste des proies
         rafraichir_predateurs(&liste_predateur, &liste_proie);
+
+        // Affiche l'état de l'écosystème
+        printf("=== Écosystème après l'itération %d ===\n", iteration);
+
+        afficher_ecosys(liste_proie, liste_predateur);
 
         // Pause pour voir l'état de l'écosystème
         usleep(T_WAIT);
