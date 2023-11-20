@@ -22,6 +22,7 @@ public class Navire {
         for(Marchandis x : tab){
             res += x.poids;
         }
+        return res;
     }
 
     
