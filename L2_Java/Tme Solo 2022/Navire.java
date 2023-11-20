@@ -20,7 +20,7 @@ public class Navire {
     public int CalculerPoidsCharge(){
         int res = 0;
         for(Marchandis x : tab){
-            res += super.poids;
+            res += x.poids;
         }
     }
 
