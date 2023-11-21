@@ -11,6 +11,7 @@ public class Navire {
         this.pays = pays;
         this.capacite = capacite;
         this.tab = new Marchandise[10];
+        this.charge = 0;
         this.id = cpt++;
         this.nb_mar = 0;
     }
