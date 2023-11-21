@@ -1,7 +1,7 @@
-public class Tuberculose extends Legume{
+public class Tubercule extends Legume{
     private char infection;
     
-    public Tuberculose(double poids, char infection){
+    public Tubercule(double poids, char infection){
         super(poids);
         this.infection = (char)('G' + ((int)(Math.random)*5));
     }
