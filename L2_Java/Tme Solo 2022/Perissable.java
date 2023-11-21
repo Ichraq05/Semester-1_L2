@@ -1,13 +1,13 @@
-public class Perissable extends Date {
-    private String date;
+public class Perissable extends Marchandise {
+    private Date date;
 
-    public Perissable(){
-        super();
-        this.date = super.toString();
+    public Perissable(double poids, Date date){
+        super(poids);
+        this.date = date;
     }
 
     public String toString(){
-        return "La marchandise " + this.id + " de poids " + this.poids + "est perissable le " + date;
+        return super.toString() + " est perissable le " + date;
     }
     
 }

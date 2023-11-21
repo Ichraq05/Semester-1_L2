@@ -10,7 +10,7 @@ public class Date{
     }
 
     public String toString(){
-        return "Date : " + jour + "-" + mois + "-" + annee;
+        return jour + "-" + mois + "-" + annee;
     }
     
 }

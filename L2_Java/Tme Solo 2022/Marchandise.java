@@ -3,8 +3,16 @@ public class Marchandise{
     private double poids;
 
     public Marchandise(double poids){
-    this.id = (int)Math.random()*1000;
+    this.id = (int)(Math.random()*1000)+1;
     this.poids = poids;
+    }
+
+    public double getPoids(){
+        return poids;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public String toString(){

@@ -1,8 +1,8 @@
 public class NonPerissable extends Marchandise{
     private String type;
 
-    public NonPerissable(String type){
-        super();
+    public NonPerissable(double poids, String type){
+        super(poids);
         this.type = type;
     }
 
