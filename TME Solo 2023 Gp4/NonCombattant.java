@@ -1,4 +1,4 @@
-public class NonCombattant extends Heros {
+public abstract class NonCombattant extends Heros {
     private int intelligence;
 
     public NonCombattant(String prenom, int intelligence){
@@ -11,7 +11,7 @@ public class NonCombattant extends Heros {
     }
 
     public String toString(){
-        return prenom + " intelligence :" + intelligence;
+        return super.prenom + " intelligence :" + intelligence;
     }
     
 }

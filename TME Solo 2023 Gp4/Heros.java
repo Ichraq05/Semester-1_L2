@@ -1,6 +1,6 @@
 public abstract class Heros {
     protected final int id;
-    private String prenom;
+    protected String prenom;
     private static int cpt = 0;
 
     public Heros(String prenom){
@@ -11,6 +11,6 @@ public abstract class Heros {
 
     public abstract void action();
 
-    public abstract String toString();
+    public String toString(){return prenom;}
     
 }

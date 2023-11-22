@@ -7,7 +7,7 @@ public class Guilde {
         this.nb_heros = 0;
     }
 
-    public ajouterHeros(Heros h){
+    public void ajouterHeros(Heros h){
         if (nb_heros < tab.length){
             tab[nb_heros] = h;
             nb_heros++;
@@ -26,12 +26,13 @@ public class Guilde {
     }
 
     public String toString(){
-        System.out.println("La guilde est composé de :\n");
+        String res = "La guilde est composé de :\n";
         for (Heros x : tab){
             if (x!=null){
-                x.toString();
+                res+=x.toString();
             }
         }
+        return res;
     }
 
 }

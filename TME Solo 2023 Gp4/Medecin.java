@@ -6,7 +6,7 @@ public class Medecin extends NonCombattant{
     }
 
     public void action(){
-        soigne = intelligence/2;
+        soigne = super.getIntelligence()/2;
         System.out.println(super.toString() + ", classe : medecin" +" , soigne " + soigne + " heros");
     }
 
