@@ -29,7 +29,7 @@ public class Guilde {
         String res = "La guilde est composé de :\n";
         for (Heros x : tab){
             if (x!=null){
-                res+=x.toString();
+                res+=x.toString() + "\n";
             }
         }
         return res;
