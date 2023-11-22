@@ -12,6 +12,8 @@ public class TestHeros {
 
         g1.actionGuilde();
 
+        System.out.println();
+
         Medecin m1 = new Medecin("Xun", 9);
         g1.ajouterHeros(m1);
 
