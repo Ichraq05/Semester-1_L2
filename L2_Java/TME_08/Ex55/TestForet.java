@@ -16,7 +16,7 @@ public class TestForet {
         }
 
         for (int i = 0; i < 4; i++){
-            ChampignonToxique amanite = new ChampignonToxique("Amanaites");
+            ChampignonToxique amanite = new ChampignonToxique("Amanites");
             foret.placer(amanite);
         }
 
