@@ -68,4 +68,5 @@ public class Foret {
         }
         return ramassable;
     }
+
 }

@@ -1,6 +1,6 @@
 public class TestForet {
     public static void main(String[] args) {
-        Foret foret = new Foret(5);
+        Foret foret = new Foret(10);
 
         for (int i = 0; i < 10; i++){
             double prob = Math.random()*100;
@@ -13,6 +13,11 @@ public class TestForet {
                 foret.placer(cepe);
             }
 
+        }
+
+        for (int i = 0; i < 4; i++){
+            ChampignonToxique amanite = new ChampignonToxique("Amanaites");
+            foret.placer(amanite);
         }
 
         System.out.println(foret.toString());;
