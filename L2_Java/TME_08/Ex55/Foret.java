@@ -69,4 +69,14 @@ public class Foret {
         return ramassable;
     }
 
+    public void ramasser(Panier p){
+        for (int i = 0; i < terrain.length; i++){
+            for(int j = 0; j < terrain.length; j++){
+                if((terrain[i][j]) instanceof Ramassable){
+                    p.add((Ramassable)terrain[i][j]);
+                    terrain[i][j] = null;
+                }
+            }
+        }
+    }
 }

@@ -1,4 +1,4 @@
-public class ChampignonToxique {
+public class ChampignonToxique implements Toxique,Ramassable {
     private String nom;
     private double poids;
 
@@ -11,7 +11,11 @@ public class ChampignonToxique {
         return poids;
     }
 
+    public boolean estToxique(){
+        return true;
+    }
+
     public String toString(){
-        return nom + " " + poids + " kg";
+        return String.format("%s %.2fkg",nom,poids);
     }
 }

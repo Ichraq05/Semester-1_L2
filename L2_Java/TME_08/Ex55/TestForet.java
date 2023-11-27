@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class TestForet {
     public static void main(String[] args) {
         Foret foret = new Foret(10);
@@ -20,7 +22,12 @@ public class TestForet {
             foret.placer(amanite);
         }
 
-        System.out.println(foret.toString());;
+        System.out.println(foret.toString());
+
+        Panier panier = new Panier(8.0);
+        foret.ramasser(panier);
+
+        System.out.println("\n" + panier.toString());
     }
     
 }

@@ -12,6 +12,6 @@ public class Champignon implements Ramassable{
     }
 
     public String toString(){
-        return nom + " " + poids + " kg";
+        return String.format("%s %.2fkg",nom,poids);
     }
 }
