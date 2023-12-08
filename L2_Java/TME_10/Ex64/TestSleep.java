@@ -4,7 +4,7 @@ import java.util.Scanner;
 //Il faut compiler dans le terminal avec javac, java...
 
 public class TestSleep {
-    public static void main(String[] args) {
+    public static void main(String[] args){ //throws InterruptedException <-- Q.2 De ce fait on a pas a gérer l'execption ici localement
         Scanner scanner  = new Scanner(System.in);
         try{
             System.out.print("Enter un nombres de secondes : ");
