@@ -12,13 +12,13 @@ public class Etudiant {
             throw new TabNotesPleinException("Impossible d'ajouter la note : " + note + " à l'étudiant " + nom + "\nLe nombre de notes max est atteintes.");
         }
         else{
-            notes[nbNotes] = notes;
+            notes[nbNotes] = note;
             nbNotes++;
         }
     }
 
     public String toString(){
-        res = "Etudiant : " + nom + "\nNotes : ";
+        String res = "Etudiant : " + nom + "\nNotes : ";
         for (int x : notes){
             res += x + " ";
         }
