@@ -1,0 +1,110 @@
+_______________________________***FILEINPUTSTREAM / FILEOUTPUTSTREAM***_________________________________
+
+FileInputStream : Cette classe est utilisée pour lire des données à partir d'un fichier.
+FileOutputStream : Cette classe est utilisée pour écrire des données dans un fichier.
+
+FileInputStream : On l'utilise lorsque l'on a besoin de lire des données à partir d'un fichier, par exemple pour lire un fichier texte, une image, etc.
+FileOutputStream : On l'utilise lorsque l'on a besoin d'écrire des données dans un fichier, par exemple pour écrire des résultats, des logs, etc.
+
+Exemple d'utilisation : 
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class FileExample {
+    public static void main(String[] args) {
+        try {
+            // Utilisation de FileInputStream pour lire un fichier
+            FileInputStream fis = new FileInputStream("source.txt");
+            int data;
+            while ((data = fis.read()) != -1) {
+                System.out.print((char) data);
+            }
+            fis.close();
+
+            // Utilisation de FileOutputStream pour écrire dans un fichier
+            FileOutputStream fos = new FileOutputStream("destination.txt");
+            String textToWrite = "Hello, world!";
+            fos.write(textToWrite.getBytes());
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+_______________________________***DATAINPUTSTREAM / DATAOUTPUTSTREAM***_________________________________
+
+DataInputStream : Utilisé pour lire des données binaires à partir d'une source, généralement un fichier ou un flux d'entrée.
+DataOutputStream : Utilisé pour écrire des données binaires dans une destination, généralement un fichier ou un flux de sortie.
+
+DataInputStream est souvent utilisé pour lire des données à partir de fichiers binaires ou de flux réseau où les données sont écrites à l'aide de DataOutputStream.
+DataOutputStream est souvent utilisé pour écrire des données dans des fichiers binaires ou envoyer des données structurées sur un réseau.
+
+Exemple d'utilisation :
+
+import java.io.*;
+
+public class DataExample {
+    public static void main(String[] args) {
+        try {
+            // Écriture de données dans un fichier binaire
+            DataOutputStream dos = new DataOutputStream(new FileOutputStream("data.bin"));
+            dos.writeInt(42);
+            dos.writeDouble(3.14);
+            dos.writeBoolean(true);
+            dos.close();
+
+            // Lecture de données depuis le fichier binaire
+            DataInputStream dis = new DataInputStream(new FileInputStream("data.bin"));
+            int intValue = dis.readInt();
+            double doubleValue = dis.readDouble();
+            boolean boolValue = dis.readBoolean();
+            dis.close();
+
+            // Affichage des valeurs lues
+            System.out.println("Int Value: " + intValue);
+            System.out.println("Double Value: " + doubleValue);
+            System.out.println("Boolean Value: " + boolValue);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+_______________________________***FILEREADER / BUFFEREDREADER***_________________________________
+
+FileReader :
+But principal : La classe FileReader est principalement utilisée pour lire des caractères à partir d'un fichier texte.
+Performances : Elle est efficace pour lire de petits fichiers, mais elle peut être moins performante pour de grands fichiers en raison de l'absence de mise en mémoire tampon (buffering).
+Usage : On l'utilise lorsque l'on a besoin de lire le fichier caractère par caractère ou lorsque la taille du fichier est petite.
+
+Exemple d'utilisation de FileReader :
+
+try (FileReader fr = new FileReader("chemin/vers/le/fichier.txt")) {
+    int character;
+    while ((character = fr.read()) != -1) {
+        System.out.print((char) character);
+    }
+} catch (IOException e) {
+    e.printStackTrace();
+}
+
+
+BufferedReader :
+But principal : La classe BufferedReader est utilisée pour améliorer les performances de lecture de fichiers texte en ajoutant une mise en mémoire tampon. Elle lit des caractères à partir d'un Reader (comme FileReader) mais utilise un tampon pour stocker les caractères, réduisant ainsi les appels système coûteux.
+Performances : Elle est plus performante pour la lecture de grands fichiers grâce à la mise en mémoire tampon.
+Usage : On l'utilise généralement lorsque l'on a besoin de lire le fichier ligne par ligne, grâce à des méthodes comme readLine().
+
+Exemple d'utilisation de BufferedReader :
+
+try (BufferedReader br = new BufferedReader(new FileReader("chemin/vers/le/fichier.txt"))) {
+    String line;
+    while ((line = br.readLine()) != null) {
+        System.out.println(line);
+    }
+} catch (IOException e) {
+    e.printStackTrace();
+}
